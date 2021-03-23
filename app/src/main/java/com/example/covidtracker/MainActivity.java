@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    TextView textcases,textdeaths,textrecovered,textactive;
+    TextView textcases,textdeaths,textrecovered,textactive,todaycases,todaydeaths,textcritical;
     SimpleArcLoader simpleArcLoader;
     ScrollView scrollView;
     PieChart pieChart;
@@ -44,19 +44,17 @@ public class MainActivity extends AppCompatActivity {
         textactive=findViewById(R.id.textactive);
         textrecovered=findViewById(R.id.textrecovered);
         textdeaths=findViewById(R.id.textdeaths);
+        todaycases=findViewById(R.id.todaycases);
+        todaydeaths=findViewById(R.id.todaydeaths);
+        textcritical=findViewById(R.id.textcritical);
         simpleArcLoader=findViewById(R.id.loader);
         scrollView=findViewById(R.id.scrollView2);
         pieChart=findViewById(R.id.piechart);
-        button=findViewById(R.id.button);
         getdata();
 
 
     }
-    public void openActivity(View v)
-    {
-        Intent intent=new Intent(this,Main2Activity.class);
-        startActivity(intent);
-    }
+
 
     private void getdata() {
         String url="https://corona.lmao.ninja/v3/covid-19/all";
@@ -72,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
                     textactive.setText(jsonObject.getString("active"));
                     textdeaths.setText(jsonObject.getString("deaths"));
                     textrecovered.setText(jsonObject.getString("recovered"));
+                    textcritical.setText(jsonObject.getString("critical"));
+                    todaycases.setText(jsonObject.getString("todayCases"));
+                    todaydeaths.setText(jsonObject.getString("todayDeaths"));
+
                     pieChart.addPieSlice(new PieModel("Total Cases",Integer.parseInt(textcases.getText().toString()), Color.parseColor("#FFA726")));
                     pieChart.addPieSlice(new PieModel("Active",Integer.parseInt(textactive.getText().toString()), Color.parseColor("#29B6F6")));
                     pieChart.addPieSlice(new PieModel("Deaths",Integer.parseInt(textdeaths.getText().toString()), Color.parseColor("#EF5350")));
