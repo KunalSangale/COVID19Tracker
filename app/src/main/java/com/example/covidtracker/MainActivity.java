@@ -50,11 +50,17 @@ public class MainActivity extends AppCompatActivity {
         simpleArcLoader=findViewById(R.id.loader);
         scrollView=findViewById(R.id.scrollView2);
         pieChart=findViewById(R.id.piechart);
+        button=findViewById(R.id.button);
+
         getdata();
 
 
     }
-
+    public  void onclick(View v)
+    {
+        Intent intent=new Intent(this,Countries.class);
+        startActivity(intent);
+    }
 
     private void getdata() {
         String url="https://corona.lmao.ninja/v3/covid-19/all";
@@ -73,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
                     textcritical.setText(jsonObject.getString("critical"));
                     todaycases.setText(jsonObject.getString("todayCases"));
                     todaydeaths.setText(jsonObject.getString("todayDeaths"));
-
                     pieChart.addPieSlice(new PieModel("Total Cases",Integer.parseInt(textcases.getText().toString()), Color.parseColor("#FFA726")));
                     pieChart.addPieSlice(new PieModel("Active",Integer.parseInt(textactive.getText().toString()), Color.parseColor("#29B6F6")));
                     pieChart.addPieSlice(new PieModel("Deaths",Integer.parseInt(textdeaths.getText().toString()), Color.parseColor("#EF5350")));
